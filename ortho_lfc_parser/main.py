@@ -54,10 +54,11 @@ def process_csv(orthogroup_filepath: str, outdir: Path) -> Path:
 
     return processed_csv
 
+
 def get_organisms(orthogroup_file: str) -> List[str]:
     """
-	parse the header of orthogroup_file to get the order of the organisms
-	"""
+    Parse the header of orthogroup_file to get the order of the organisms
+    """
     with open(orthogroup_file) as fh:
         header = fh.readline()
         organisms = header.strip().split()
@@ -190,16 +191,17 @@ def orthogroup_parse(orthogroup_file, diff_expr_files, outdir):
     for differential_expression_file_name in diff_expr_files:
         gene_2_LFCs.append(read_differential_expression_file(differential_expression_file_name))
 
-    with open(outdir/"allPositives.tsv", "w") as all_positives_fh, \
-            open(outdir/"allNegatives.tsv", "w") as all_negatives_fh, \
-            open(outdir/"positivesAndNegatives.tsv", "w") as positives_and_negatives_fh, \
-            open(outdir/"allEvents.tsv", "w") as all_events_fh, \
-            open(outdir/"not_significatives_genes.tsv", "w") as not_significatives_genes_fh:
+    with open(outdir / "allPositives.tsv", "w") as all_positives_fh, \
+            open(outdir / "allNegatives.tsv", "w") as all_negatives_fh, \
+            open(outdir / "positivesAndNegatives.tsv", "w") as positives_and_negatives_fh, \
+            open(outdir / "allEvents.tsv", "w") as all_events_fh, \
+            open(outdir / "not_significatives_genes.tsv", "w") as not_significatives_genes_fh:
         generate_all_combinations_and_process(orthogroup_2_organism_2_gene_list, gene_2_LFCs, organisms,
                                               all_positives_fh, all_negatives_fh, positives_and_negatives_fh,
                                               all_events_fh, not_significatives_genes_fh)
 
     logging.info("All done!")
+
 
 def get_args():
     parser = argparse.ArgumentParser(description='Orthogroup LFC parser.')
